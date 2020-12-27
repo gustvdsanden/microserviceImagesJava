@@ -4,6 +4,7 @@ import com.example.demo.model.Image;
 
 import com.example.demo.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -31,6 +32,11 @@ public class ImageController {
 
         return imageRepository.findAll();
     }
+    @GetMapping("/test")
+    public String test(){
+
+        return "test";
+    }
 
     @GetMapping("/images/{key}")
     public Image getImages(@PathVariable String key)    {
@@ -42,5 +48,32 @@ public class ImageController {
     {
         imageRepository.save(newImage);
         return newImage;
+    }
+    @PutMapping("/images")
+    public Image updateImage(@RequestBody Image updateImage)
+    {
+        Image image = imageRepository.findImagesByKey(updateImage.getKey());
+        if(image != null){
+            image.setSource(updateImage.getSource());
+            image.setDescription(updateImage.getDescription());
+            image.setUserEmail(updateImage.getUserEmail());
+            imageRepository.save(image);
+            return image;
+        }else{
+            return null;
+        }
+
+    }
+
+    @DeleteMapping("/images/{key}")
+    public ResponseEntity<Object> deleteImage(@PathVariable String key)
+    {
+        Image image = imageRepository.findImagesByKey(key);
+        if(image != null){
+            imageRepository.delete(image);
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -24,6 +24,9 @@ public class Image {
         this.userEmail = userEmail;
         this.key = DigestUtils.sha256Hex(source + userEmail + new Date(System.currentTimeMillis()));
     }
+    public Image(){
+
+    }
 
 
     public String getSource() {
