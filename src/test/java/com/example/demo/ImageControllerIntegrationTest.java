@@ -32,27 +32,27 @@ public class ImageControllerIntegrationTest {
     );
 
     private Image image2 = new Image(
-            "app/img",
+            "app/img2",
             "youri@hotmail.com",
             "Dat is mooi."
 
     );
 
     private Image image3 = new Image(
-            "app/img",
+            "app/img3",
             "youri@hotmail.com",
             "Dat is mooi."
 
     );
 
     private Image image4 = new Image(
-            "app/img",
+            "app/img4",
             "youri@hotmail.com",
             "Dat is mooi."
 
     );
     private Image image5 = new Image(
-            "app/img",
+            "app/img5",
             "youri@hotmail.com",
             "Dat is mooi."
 
@@ -100,8 +100,8 @@ public class ImageControllerIntegrationTest {
     @Test
     public void givenImage_whenPostImage_thenReturnJsonImage() throws Exception {
         Image image = new Image( "app/img1",
-                "this is a post Title",
-                "post@hotmail.com");
+                "post@hotmail.com",
+                "this is a post Title");
 
         mockMvc.perform(post("/images")
                 .content(mapper.writeValueAsString(image))

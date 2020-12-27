@@ -55,18 +55,16 @@ public class ImageControllerUnitTest {
 
         given(imageRepository.findAll()).willReturn(imageList);
 
-        mockMvc.perform(get("/comments"))
+        mockMvc.perform(get("/images"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].title",is("Comment1")))
-                .andExpect(jsonPath("$[0].description",is("Dat is mooi.")))
+                .andExpect(jsonPath("$[0].source",is("app/img1")))
+                .andExpect(jsonPath("$[0].description",is("test discription")))
                 .andExpect(jsonPath("$[0].userEmail",is("com1@hotmail.com")))
-                .andExpect(jsonPath("$[0].imageKey",is("com1.png")))
-                .andExpect(jsonPath("$[1].title",is("Comment2")))
-                .andExpect(jsonPath("$[1].description",is("Dat is speciaal.")))
-                .andExpect(jsonPath("$[1].userEmail",is("com2@hotmail.com")))
-                .andExpect(jsonPath("$[1].imageKey",is("com2.png")));
+                .andExpect(jsonPath("$[1].source",is("app/img2")))
+                .andExpect(jsonPath("$[1].description",is("test discription")))
+                .andExpect(jsonPath("$[1].userEmail",is("com2@hotmail.com")));
     }
 
      @Test
@@ -82,10 +80,9 @@ public class ImageControllerUnitTest {
         mockMvc.perform(get("/images/{key}", image1.getKey()))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.title", is("Comment1")))
-                .andExpect(jsonPath("$.description", is("Dat is mooi.")))
-                .andExpect(jsonPath("$.userEmail", is("com1@hotmail.com")))
-                .andExpect(jsonPath("$.imageKey", is("com1.png")));
+                .andExpect(jsonPath("$.source", is("app/img1")))
+                .andExpect(jsonPath("$.description", is("test discription")))
+                .andExpect(jsonPath("$.userEmail", is("com1@hotmail.com")));
     }
 
    @Test
@@ -127,8 +124,8 @@ public class ImageControllerUnitTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.source", is("app/img1")))
-                .andExpect(jsonPath("$.userEmail", is("com1@hotmail.com")))
-                .andExpect(jsonPath("$.description", is("test discription")));
+                .andExpect(jsonPath("$.userEmail", is("put@hotmail.com")))
+                .andExpect(jsonPath("$.description", is("this is a put Title")));
     }
 
    @Test
