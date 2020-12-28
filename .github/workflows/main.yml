@@ -35,6 +35,8 @@ jobs:
 
       - name: Start MariaDB
         uses: getong/mariadb-action@v1.1
+        with:
+          mysql database: 'images'
         
       - name: Test and build project
         run: mvn -f pom.xml clean install
