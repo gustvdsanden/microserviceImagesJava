@@ -42,6 +42,10 @@ public class ImageController {
     public Image getImages(@PathVariable String key)    {
         return imageRepository.findImagesByKey(key);
     }
+	 @GetMapping("/images/user/{userEmail}")
+    public Image getImages(@PathVariable String userEmail)    {
+        return imageRepository.findImagesByEmail(userEmail);
+    }
 
     @PostMapping("/images")
     Image addImage(@RequestBody Image newImage)
