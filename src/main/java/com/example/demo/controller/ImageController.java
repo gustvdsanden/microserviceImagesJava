@@ -39,7 +39,7 @@ public class ImageController {
     }
 
     @GetMapping("/images/{key}")
-    public Image getImages(@PathVariable String key)    {
+    public Image getImagesByKey(@PathVariable String key)    {
         return imageRepository.findImagesByKey(key);
     }
 	 @GetMapping("/images/user/{userEmail}")
