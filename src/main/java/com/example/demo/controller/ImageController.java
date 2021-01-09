@@ -26,18 +26,11 @@ public class ImageController {
             imageRepository.save(new Image("/img4/spacemaker","thomasmiep@test.com","this image is pretty nice"));
         }
     }
-
     @GetMapping("/images")
     public List<Image> getAllUsers(){
 
         return imageRepository.findAll();
     }
-    @GetMapping("/test")
-    public String test(){
-
-        return "test";
-    }
-
     @GetMapping("/images/{key}")
     public Image getImagesByKey(@PathVariable String key)    {
         return imageRepository.findImagesByKey(key);
@@ -57,15 +50,12 @@ public class ImageController {
     public Image updateImage(@RequestBody Image updateImage)
     {
         Image image = imageRepository.findImagesByKey(updateImage.getKey());
-        if(image != null){
+
             image.setSource(updateImage.getSource());
             image.setDescription(updateImage.getDescription());
             image.setUserEmail(updateImage.getUserEmail());
             imageRepository.save(image);
             return image;
-        }else{
-            return null;
-        }
 
     }
 

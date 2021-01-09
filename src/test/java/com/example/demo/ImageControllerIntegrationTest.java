@@ -27,33 +27,33 @@ public class ImageControllerIntegrationTest {
 
     private Image image1 = new Image(
             "app/img",
-            "youri@hotmail.com",
+            "youri1@hotmail.com",
             "Dat is mooi."
     );
 
     private Image image2 = new Image(
             "app/img2",
-            "youri@hotmail.com",
+            "youri2@hotmail.com",
             "Dat is mooi."
 
     );
 
     private Image image3 = new Image(
             "app/img3",
-            "youri@hotmail.com",
+            "youri3@hotmail.com",
             "Dat is mooi."
 
     );
 
     private Image image4 = new Image(
             "app/img4",
-            "youri@hotmail.com",
+            "youri4@hotmail.com",
             "Dat is mooi."
 
     );
     private Image image5 = new Image(
             "app/img5",
-            "youri@hotmail.com",
+            "youri5@hotmail.com",
             "Dat is mooi."
 
     );
@@ -94,7 +94,17 @@ public class ImageControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.source", is("app/img")))
                 .andExpect(jsonPath("$.description", is("Dat is mooi.")))
-                .andExpect(jsonPath("$.userEmail", is("youri@hotmail.com")));
+                .andExpect(jsonPath("$.userEmail", is("youri1@hotmail.com")));
+    }
+    @Test
+    public void givenImage_whenGetImageByEmail_thenReturnJsonImage() throws Exception{
+
+        mockMvc.perform(get("/images/user/{userEmail}", this.image1.getUserEmail()))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.source", is("app/img")))
+                .andExpect(jsonPath("$.description", is("Dat is mooi.")))
+                .andExpect(jsonPath("$.userEmail", is("youri1@hotmail.com")));
     }
 
     @Test
@@ -130,6 +140,7 @@ public class ImageControllerIntegrationTest {
                 .andExpect(jsonPath("$.description", is("this is a put Title")))
                 .andExpect(jsonPath("$.userEmail", is("put@hotmail.com")));
     }
+
 
     @Test
     public void givenImage_whenDeleteImage_thenStatusOk() throws Exception {

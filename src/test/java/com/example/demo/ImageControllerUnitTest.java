@@ -84,6 +84,23 @@ public class ImageControllerUnitTest {
                 .andExpect(jsonPath("$.description", is("test discription")))
                 .andExpect(jsonPath("$.userEmail", is("com1@hotmail.com")));
     }
+    @Test
+    public void givenImage_whenGetImageByEmail_thenReturnJsonImage() throws Exception{
+        Image image1 = new Image(
+                "app/img1",
+                "com1@hotmail.com",
+                "test discription"
+        );
+
+        given(imageRepository.findImagesByEmail(image1.getUserEmail())).willReturn(image1);
+
+        mockMvc.perform(get("/images/user/{userEmail}", image1.getUserEmail()))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.source", is("app/img1")))
+                .andExpect(jsonPath("$.description", is("test discription")))
+                .andExpect(jsonPath("$.userEmail", is("com1@hotmail.com")));
+    }
 
    @Test
     public void givenImage_whenPostImage_thenReturnJsonImage() throws Exception {
